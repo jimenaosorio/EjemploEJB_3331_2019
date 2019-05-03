@@ -40,6 +40,11 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public Postulante buscarPostulante(String rut) {
+        for(Postulante p:postulantes){
+            if(p.getRut().equals(rut)){
+                return p;
+            }
+        }
         return null;
     }
 
@@ -84,6 +89,24 @@ public class Servicio implements ServicioLocal {
     public String postular(String rut, int codigoOferta) {
         return null;
     }
+
+    @Override
+    public String addPostulante(Postulante postulante) {
+        String msg;
+        Postulante p=buscarPostulante(postulante.getRut());
+        if(p==null) //El postulante no esta en la lista, lo podemos agregar
+        {
+            postulantes.add(postulante);
+            msg="Postulante ingresado correctamente";
+        }
+        else{
+            msg="El postulante ya se encuentra registrado";
+        }
+        return msg;
+    }
+    
+    
+    
     
     
 }

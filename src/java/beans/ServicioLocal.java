@@ -35,5 +35,7 @@ public interface ServicioLocal {
     boolean iniciarSesion(String rut, String pass);
 
     String postular(String rut, int codigoOferta);
+
+    String addPostulante(Postulante postulante);
     
 }
