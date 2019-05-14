@@ -13,6 +13,13 @@ public class Oferta {
     public Oferta() {
     }
 
+    public Oferta(int codigo, String titulo, String descripcion, boolean estaActiva) {
+        this.codigo = codigo;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.estaActiva = estaActiva;
+    }
+
     public Oferta(int codigo, String titulo, String descripcion, boolean estaActiva, ArrayList<Postulante> misPostulantes) {
         this.codigo = codigo;
         this.titulo = titulo;

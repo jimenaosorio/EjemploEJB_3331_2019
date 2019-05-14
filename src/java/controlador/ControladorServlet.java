@@ -64,7 +64,10 @@ public class ControladorServlet extends HttpServlet {
         if(nombre.equals("")){
             errores+="Debe ingresar su nombre<br/>";
         }
-        if(!clave.equals(clave2)){
+        if(clave.equals("")||clave2.equals("")){
+            errores+="Debe ingresar valores en ambas claves<br/>";
+        }
+        else if(!clave.equals(clave2)){
             errores+="Las claves no coinciden<br/>";
         }
         if(errores.equals("")) //NO hay errores
@@ -82,6 +85,34 @@ public class ControladorServlet extends HttpServlet {
     }
     protected void iniciarSesion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String rut=request.getParameter("rut");
+        String clave=request.getParameter("clave");
+        String msg="";
+        if(rut.isEmpty() || clave.isEmpty())
+        {
+            msg+="El RUT y la clave son obligatorios<br/>";
+            request.setAttribute("msg",msg);
+            request.getRequestDispatcher("iniciarsesion.jsp").forward(request,response);
+        }
+        else{   //Tiene RUT y clave
+            if(servicio.iniciarSesion(rut, clave)) //Ingreso OK
+            {
+                if(servicio.buscarPostulante(rut).getNombre().equals("admin"))
+                {  //Es el administrador
+                    request.getSession().setAttribute("admin","admin");
+                }
+                else{
+                    //Es un postulante
+                    request.getSession().setAttribute("rut",rut);
+                }
+                response.sendRedirect("ofertas.jsp");
+            }
+            else{
+                msg+="El usuario no existe o la clave es incorrecta<br/>";
+                request.setAttribute("msg",msg);
+                request.getRequestDispatcher("iniciarsesion.jsp").forward(request, response);
+            }
+        }
         
     }
 

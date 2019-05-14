@@ -26,11 +26,11 @@ public class Servicio implements ServicioLocal {
 
     public Servicio() {
         ofertas.add(new Oferta(1,"Desarrollador Java Web",
-                "Desarrollador de tiempo completo",true,null));
+                "Desarrollador de tiempo completo",true));
         ofertas.add(new Oferta(2,"Diseñador grafico",
-        "Experto en Materialize CSS",true,null));
+        "Experto en Materialize CSS",true));
         postulantes.add(new Postulante("111","admin","admin",
-        "admin@localhost","admin",null,null,null));
+        "admin@localhost","admin"));
     }
 
     @Override
@@ -82,6 +82,11 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public boolean iniciarSesion(String rut, String pass) {
+        Postulante p=buscarPostulante(rut);
+        if(p!=null && p.getPass().equals(pass))
+        {
+            return true;
+        }
         return false;
     }
 
