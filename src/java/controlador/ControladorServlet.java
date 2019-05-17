@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Perfil;
 import modelo.Postulante;
 
 /**
@@ -47,6 +48,36 @@ public class ControladorServlet extends HttpServlet {
                                 break;
             case "registro": registrar(request,response);
                                 break;
+            case "ingresar_perfil": ingresarPerfil(request,response);
+                                break;
+        }
+    }
+    protected void ingresarPerfil(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String profesion=request.getParameter("profesion");
+        String experiencia=request.getParameter("experiencia");
+        String presentacion=request.getParameter("presentacion");
+        String errores="";
+        if(profesion.equals("")){
+            errores+="Debes ingresar tu profesión<br/>";
+        }
+        if(experiencia.equals("")){
+            errores+="Debes ingresar tu experiencia<br/>";
+        }
+        if(presentacion.equals("")){
+            errores+="Debes ingresar tu presentación<br/>";
+        }
+        if(errores.isEmpty())
+        {
+            Perfil perfil=new Perfil(profesion,experiencia,presentacion);
+            String rut=(String)request.getSession().getAttribute("rut");
+            String msg=servicio.ingresarPerfil(rut,perfil);
+            request.setAttribute("msg",msg);
+            request.getRequestDispatcher("miperfil.jsp").forward(request,response);
+        }
+        else{
+            request.setAttribute("msg",errores);
+            request.getRequestDispatcher("miperfil.jsp").forward(request,response);
         }
     }
     protected void registrar(HttpServletRequest request, HttpServletResponse response)

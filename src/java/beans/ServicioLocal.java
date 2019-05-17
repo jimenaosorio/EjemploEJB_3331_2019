@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.ejb.Local;
 import modelo.Mensaje;
 import modelo.Oferta;
+import modelo.Perfil;
 import modelo.Postulante;
 
 /**
@@ -37,5 +38,7 @@ public interface ServicioLocal {
     String postular(String rut, int codigoOferta);
 
     String addPostulante(Postulante postulante);
+
+    String ingresarPerfil(String rut, Perfil perfil);
     
 }

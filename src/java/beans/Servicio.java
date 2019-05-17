@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.ejb.Singleton;
 import modelo.Mensaje;
 import modelo.Oferta;
+import modelo.Perfil;
 import modelo.Postulante;
 
 /**
@@ -108,6 +109,13 @@ public class Servicio implements ServicioLocal {
             msg="El postulante ya se encuentra registrado";
         }
         return msg;
+    }
+
+    @Override
+    public String ingresarPerfil(String rut, Perfil perfil) {
+        Postulante p=buscarPostulante(rut);
+        p.setMiPerfil(perfil);
+        return "Perfil actualizado correctamente";
     }
     
     
