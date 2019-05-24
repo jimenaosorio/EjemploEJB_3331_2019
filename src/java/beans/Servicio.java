@@ -36,6 +36,11 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public Oferta buscarOferta(int codigoOferta) {
+        for(Oferta of:ofertas){
+            if(of.getCodigo()==codigoOferta){
+                return of;
+            }
+        }
         return null;
     }
 

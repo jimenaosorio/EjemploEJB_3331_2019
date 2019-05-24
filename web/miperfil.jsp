@@ -1,5 +1,13 @@
+<%@page import="modelo.Postulante"%>
 <%@include file="templates/header.jsp" %>
 <%@include file="templates/menu.jsp" %>
+<%
+   String rut=(String)request.getSession().getAttribute("rut");
+   Postulante postulante=servicio.buscarPostulante(rut);
+
+%>
+
+<c:set var="postulante" scope="page" value="<%=postulante%>" />
 
 <c:if test="${not empty rut}">
     <!-- Código -->
@@ -8,15 +16,24 @@
         <form method="post" action="control.do">
             <h2>Mi Perfil</h2>
             <div class="input-field col s12">
-                <input name="profesion" id="profesion" type="text" class="validate">
+                <input name="profesion" id="profesion" type="text" 
+                       class="validate"
+                       value="${postulante.miPerfil.profesion}"
+                       >
                 <label for="profesion">Profesion</label>
             </div>
             <div class="input-field col s12">
-                <input name="experiencia" id="experiencia" type="text" class="validate">
+                <input name="experiencia" id="experiencia" type="text" 
+                       class="validate"
+                       value="${postulante.miPerfil.experiencia}"
+                       >
                 <label for="experiencia">Experiencia</label>
             </div>
             <div class="input-field col s12">
-                <input name="presentacion" id="presentacion" type="text" class="validate">
+                <input name="presentacion" id="presentacion" type="text"
+                       class="validate"
+                       value="${postulante.miPerfil.presentacion}"
+                       >
                 <label for="presentacion">Presentación</label>
             </div>
             <div>

@@ -1,5 +1,19 @@
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="beans.ServicioLocal"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%! ServicioLocal servicio; %>
+<%
+    InitialContext ctx=new InitialContext();    
+    servicio=(ServicioLocal)
+       ctx.lookup("java:global/PracticoU2_3331/Servicio!beans.ServicioLocal");
+%>
+
+<c:set var="servicio" scope="page" value="<%=servicio%>"/>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
