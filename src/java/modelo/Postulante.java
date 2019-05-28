@@ -10,8 +10,8 @@ public class Postulante {
     private String correo;
     private String pass;
     private Perfil miPerfil;
-    private ArrayList<Oferta> misPostulaciones;
-    private ArrayList<Mensaje> misMensajes;
+    private ArrayList<Oferta> misPostulaciones=new ArrayList();
+    private ArrayList<Mensaje> misMensajes=new ArrayList();
 
     public Postulante() {
     }

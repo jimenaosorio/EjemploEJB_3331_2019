@@ -98,7 +98,27 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public String postular(String rut, int codigoOferta) {
-        return null;
+        //Recuperamos el postulante
+        Postulante p=buscarPostulante(rut);
+        //Recuperamos la oferta
+        Oferta of=buscarOferta(codigoOferta);
+        if(p!=null && of!=null && of.isEstaActiva()) //Si puede postular
+        {
+            //Agregamos la oferta a las postulaciones del postulante
+            ArrayList<Oferta> postulaciones=p.getMisPostulaciones();
+            postulaciones.add(of);
+            p.setMisPostulaciones(postulaciones);
+            //Agregamos el postulante a la lista de postulantes de la oferta
+            ArrayList<Postulante> postulantes=of.getMisPostulantes();
+            postulantes.add(p);
+            of.setMisPostulantes(postulantes);
+            //Devolvemos un mensaje
+            return "Postulación ingresada correctamente";
+        }
+        else{ //NO puede postular
+            return "No se puede postular";
+        }
+        
     }
 
     @Override

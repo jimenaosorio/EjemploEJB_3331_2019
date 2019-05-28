@@ -65,7 +65,16 @@ public class ControladorServlet extends HttpServlet {
     }
     protected void ingresarPostulacion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Quedamos hasta aquí
+        //Recuperamos los atributos desde la sesión
+        String rut=(String)request.getSession().getAttribute("rut");
+        Oferta oferta=(Oferta)request.getSession().getAttribute("oferta");
+        //Llamamos al servicio que es el que hace la postulación
+        String msg=servicio.postular(rut,oferta.getCodigo());
+        //Redireccionar a mispostulaciones.jsp y mostrar el mensaje
+        request.setAttribute("msg",msg);
+        request.getRequestDispatcher("mispostulaciones.jsp").forward(request,response);
+        
+        
     }
     protected void postular(HttpServletRequest request, 
             HttpServletResponse response, int codigo)
@@ -125,8 +134,7 @@ public class ControladorServlet extends HttpServlet {
         }
         if(errores.equals("")) //NO hay errores
         {
-            Postulante postulante=new Postulante(rut,nombre,apellido,correo,clave,
-                                   null,null,null);
+            Postulante postulante=new Postulante(rut,nombre,apellido,correo,clave);
             String msg=servicio.addPostulante(postulante);
             request.setAttribute("msg",msg);
             request.getRequestDispatcher("iniciarsesion.jsp").forward(request,response);

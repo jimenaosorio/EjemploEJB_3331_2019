@@ -8,7 +8,7 @@ public class Oferta {
     private String titulo;
     private String descripcion;
     private boolean estaActiva;
-    private ArrayList<Postulante> misPostulantes;
+    private ArrayList<Postulante> misPostulantes=new ArrayList();
 
     public Oferta() {
     }
