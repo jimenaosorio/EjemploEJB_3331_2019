@@ -56,17 +56,37 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public boolean cerrarOferta(int codigo) {
+        Oferta oferta=buscarOferta(codigo);
+        if(oferta.isEstaActiva())
+        {
+            oferta.setEstaActiva(false); //Desactivamos la oferta
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean crearOferta(Oferta oferta) {
+        Oferta tmp=buscarOferta(oferta.getCodigo());
+        if(tmp==null)
+        {
+            ofertas.add(oferta);
+            return true;
+        }
         return false;
     }
 
     @Override
     public String enviarMensaje(String rut, Mensaje msg) {
-        return null;
+        Postulante p=buscarPostulante(rut);
+        if(p!=null)
+        {
+            ArrayList<Mensaje> mensajes=p.getMisMensajes();
+            mensajes.add(msg);
+            p.setMisMensajes(mensajes);
+            return "El mensaje se ha enviado correctamente";
+        }
+        return "No se puede enviar el mensaje";
     }
 
     @Override
@@ -83,7 +103,7 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public ArrayList<Postulante> getPostulantes() {
-        return null;
+        return postulantes;
     }
 
     @Override

@@ -1,11 +1,11 @@
 <%@include file="templates/header.jsp" %>
 <%@include file="templates/menu.jsp" %>
 
-<c:if test="${not empty rut}">
+<c:if test="${not empty admin}">
     <!-- Código -->
     
 </c:if>
-<c:if test="${empty rut}">
+<c:if test="${empty admin}">
     <p>
         No está registrado para estar aquí.
         <a href="index.jsp">Ir al inicio</a>
@@ -13,7 +13,3 @@
 </c:if>
 
 <%@include file="templates/footer.jsp" %>
-
-
-
-
